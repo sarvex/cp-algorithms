@@ -27,7 +27,7 @@ def main(request):
 
 def render(markdown: str, directory: str) -> str:
     # prepare file structure and configuration for MkDocs
-    tmp_path = Path(str(directory))
+    tmp_path = Path(directory)
     (tmp_path / "docs").mkdir(parents=True, exist_ok=True)
     (tmp_path / "mkdocs.yml").write_text("""
 site_name: CP Algorithms
@@ -53,9 +53,9 @@ plugins:
     (tmp_path / "docs" / "index.md").write_text(markdown)
 
     # render the page
-    
+
     start_time = time.time()
-    subprocess.run(['mkdocs', 'build', '--dirty'], cwd=tmp_path) 
+    subprocess.run(['mkdocs', 'build', '--dirty'], cwd=tmp_path)
     print(f"finish dirty build: {time.time() - start_time:2.5f}s")
 
     # extract the main content (without header/footer/...)

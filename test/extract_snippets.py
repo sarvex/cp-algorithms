@@ -3,13 +3,13 @@ import re
 import os
 
 def write_snippet(name, lines):
-    file_name = '{}.h'.format(name)
+    file_name = f'{name}.h'
     with open(file_name, 'w') as f:
         for line in lines:
             f.write(line)
 
 def extract_tests(filepath):
-    filepath_short = os.path.basename(filepath) 
+    filepath_short = os.path.basename(filepath)
     article_name = filepath_short.split('.')[0]
 
     snippet_start = re.compile(r"^```\{.cpp\s+file=(\S+)\}$")
@@ -28,7 +28,7 @@ def extract_tests(filepath):
             if in_snippet:
                 lines.append(line)
             elif m_start:
-                snippet_name = m_start.group(1)
+                snippet_name = m_start[1]
                 lines = []
                 in_snippet = True
 
